@@ -27,7 +27,7 @@
   CSV which tallies losses or gains from all stores, listed individually:
 
   | store | plusminus |
-  |-------+-----------|
+  |-------|-----------|
   |     1 |   -123.40 |
   |     3 |   +200.10 |
 
