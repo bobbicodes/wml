@@ -1,4 +1,4 @@
-* The prices are wrong!
+# The prices are wrong!
 
   Oh no! A team of accountants at Walmart have discovered that customers are
   occasionally being charged too much or too little for various products.  They've
@@ -10,10 +10,10 @@
   price each one should have.
 
   A receipt is just a plaintext file with rows formatted like:
-  - A product name
-  - A product code
-  - A price
-  - A random flag character (this exists for no other reason than to confuse you)
+  * A product name
+  * A product code
+  * A price
+  * A random flag character (this exists for no other reason than to confuse you)
 
   There's also a store number listed up top.
 
@@ -21,7 +21,7 @@
   void, and the customer didn't pay for it, so it won't reflect in the total.  Your
   program should ignore these voided products.
 
-* So, about that report...
+## So, about that report...
 
   Anyway, the angry accountants would like your program to output a
   CSV which tallies losses or gains from all stores, listed individually:
