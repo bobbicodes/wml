@@ -1,22 +1,42 @@
-# wml
+* The prices are wrong!
 
-A Clojure library designed to ... well, that part is up to you.
+  Oh no! A team of accountants at Walmart have discovered that customers are
+  occasionally being charged too much or too little for various products.  They've
+  written you an angry email about it, and now you're tasked with coming up with
+  a data report about the situation.
 
-## Usage
+  They've sent you a directory containing the receipts in which they suspect
+  prices are wrong and a CSV file containing the product codes and the correct
+  price each one should have.
 
-FIXME
+  A receipt is just a plaintext file with rows formatted like:
+  - A product name
+  - A product code
+  - A price
+  - A random flag character (this exists for no other reason than to confuse you)
 
-## License
+  There's also a store number listed up top.
 
-Copyright © 2019 FIXME
+  Sometimes, items might be voided.  This means that the previous line is null and
+  void, and the customer didn't pay for it, so it won't reflect in the total.  Your
+  program should ignore these voided products.
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
+* So, about that report...
 
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+  Anyway, the angry accountants would like your program to output a
+  CSV which tallies losses or gains from all stores, listed individually:
+
+  | store | plusminus |
+  |-------+-----------|
+  |     1 |   -123.40 |
+  |     3 |   +200.10 |
+
+  That way, they can track down the people responsible!
+
+  In addition, your CSV should be sorted by the plusminus column from low to
+  high.  The accountants care more about the business losing money, I guess! 
+
+  The accountants might email you again with more stuff, so it'd be smart for your
+  program to take a parameter, say, `directory`, and output the CSV file?  Then you
+  can run it again and again when they give you more receipts to analyze!  I don't
+  know, you're the expert.
