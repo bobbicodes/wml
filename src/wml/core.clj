@@ -8,4 +8,4 @@
     (csv/read-csv reader))))
 
 (defn -main []
-  (println (first prices)))
+  (println (take 10 (.list (io/file "resources/data")))))
