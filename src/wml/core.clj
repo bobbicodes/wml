@@ -20,5 +20,11 @@
 (defn price [s]
   (re-find #"\d+\.\d+" s))
 
+(defn id-match? [s line]
+  (clojure.string/includes? s (product-code (nth-line line))))
+
+(defn get-price [line]
+  (first (remove nil? (map #(if (id-match? % line) (last %)) prices))))
+
 (defn -main []
   (println (take 10 (.list (io/file "resources/data")))))
