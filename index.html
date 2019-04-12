@@ -126,11 +126,15 @@
            (map #(if (clojure.string/includes? % s)
                    (last %)) prices))))
 
-(defn sub-price [n]
-  (- (js/parseFloat (price (nth receipt n)))
-     (js/parseFloat (get-price (product-code (nth receipt n))))))
+; we need a fn that takes a line,
+; so we can map it on the coll.
+; or reduce it rather, since we are building a sum.
 
-(sub-price 2)
+(defn sub-price [line]
+  (- (js/parseFloat (price line))
+     (js/parseFloat (get-price (product-code line)))))
+
+(map sub-price (rest receipt))
 </code></pre>
 </h2>
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
