@@ -7,7 +7,18 @@
   (doall
     (csv/read-csv reader))))
 
-(defn void? [s] (clojure.string/includes? s "VOID"))
+(defn nth-line [n]
+  (with-open [rdr (io/reader "resources/data/2001-09-01/ee62f687-4ed4-d4bd-40d9-c2671edb2768")]
+    (nth (line-seq rdr) n)))
+
+(defn void? [s]
+  (clojure.string/includes? s "VOID"))
+
+(defn product-code [s]
+  (re-find #"\d+" s))
+
+(defn price [s]
+  (re-find #"\d+\.\d+" s))
 
 (defn -main []
   (println (take 10 (.list (io/file "resources/data")))))
