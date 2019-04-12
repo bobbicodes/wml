@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Walmart Labs</title>
+    <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+    <script>
+    window.klipse_settings = {
+        selector: '.language-klipse',
+    };
+</script>
+</head>
+<body>
+<h1>
+<center>Walmart Labs</center>
+</h1>
+<h2>
+<pre><code class="language-klipse">
 (ns wml.core
   (:require [clojure.data.csv :as csv]
             [clojure.java.io :as io]))
@@ -25,3 +43,9 @@
 
 (defn -main []
   (println (take 10 (.list (io/file "resources/data")))))
+
+</code></pre>
+</h2>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
+</body>
+</html>
