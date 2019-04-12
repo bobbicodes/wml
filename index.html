@@ -16,34 +16,48 @@
 </h1>
 <h2>
 <pre><code class="language-klipse">
-(ns wml.core
-  (:require [clojure.data.csv :as csv]
-            [clojure.java.io :as io]))
+(ns wml.core)
 
 (def prices
-  (with-open [reader (io/reader "resources/data/prices.csv")]
-    (doall
-      (csv/read-csv reader))))
+  '(["4651861144" "104.36"] ["2029075259" "169.05"] ["7975490736" "144.91"]
+                           ["1604898223" "180.31"] ["5460609671" "3.85"] ["9650481305" "195.44"]
+                           ["7780854831" "67.79"] ["1194607021" "162.93"] ["2581192686" "145.77"]
+                           ["8465249771" "117.34"] ["5201758600" "196.78"] ["9328241683" "158.47"]
+                           ["3511092833" "87.58"] ["0879898868" "116.19"] ["2165001760" "173.69"]))
 
-(defn nth-line [n]
-  (with-open [rdr (io/reader "resources/data/2001-09-01/ee62f687-4ed4-d4bd-40d9-c2671edb2768")]
-    (nth (line-seq rdr) n)))
+(def receipt
+  '("BIGCO  STORE #2                              "
+   "SICP   8649139606                    196.66  "
+   "BINARY_XMAS__TREE   7268888904       333.02  "
+   "POTATO CRISPS   8465249771           117.34 X"
+   "POTATO CHIPS   8613530819             21.68 F"
+   "MONSTERTRUCK   9328241683             90.27  "
+   "*** VOIDED PRODUCT 9328241683 ***            "
+   "BLOOP   4758647605                   150.36 Z"
+   "BINARY_XMAS__TREE   7268888904       310.27 Z"
+   "BAD_IDEA_TM   5201758600             392.17 F"
+   "BAG-OF_PARENTHESES   4048067021      157.29  "
+   "*** VOIDED PRODUCT 4048067021 ***            "
+   "POTATO CHIPS   8613530819             23.87 Z"
+   "HAPPY CAT   2165001760               109.30  "
+   "DESK   2581192686                    194.40  "
+   "HAMMOCK   7527488795                  28.91  "
+   "*** VOIDED PRODUCT 7527488795 ***            "
+   "STALLMANS TOE   5157226892           259.17 X"
+   "STALLMANS TOE   5157226892           170.60 Z"
+   "BANANAS   0879898868                 116.19 Z"))
 
-(defn void? [s]
-  (clojure.string/includes? s "VOID"))
+  (defn void? [s]
+    (clojure.string/includes? s "VOID"))
 
-(defn product-code [s]
-  (re-find #"\d+" s))
+  (defn product-code [s]
+    (re-find #"\d+" s))
 
-(defn price [s]
-  (re-find #"\d+\.\d+" s))
+  (defn price [s]
+    (re-find #"\d+\.\d+" s))
 
-(defn get-price [s]
-  (first (remove nil? (map #(if (clojure.string/includes? % s) (last %)) prices))))
-
-(defn -main []
-  (println (take 10 (.list (io/file "resources/data")))))
-
+  (defn get-price [s]
+    (first (remove nil? (map #(if (clojure.string/includes? % s) (last %)) prices))))
 </code></pre>
 </h2>
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
