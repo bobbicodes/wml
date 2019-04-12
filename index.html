@@ -126,7 +126,11 @@
            (map #(if (clojure.string/includes? % s)
                    (last %)) prices))))
 
-(price (nth receipt 1))
+(defn sub-price [n]
+  (- (js/parseFloat (price (nth receipt n)))
+     (js/parseFloat (get-price (product-code (nth receipt n))))))
+
+(sub-price 2)
 </code></pre>
 </h2>
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
