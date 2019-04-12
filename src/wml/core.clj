@@ -7,5 +7,7 @@
   (doall
     (csv/read-csv reader))))
 
+(defn void? [s] (clojure.string/includes? s "VOID"))
+
 (defn -main []
   (println (take 10 (.list (io/file "resources/data")))))
