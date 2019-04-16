@@ -134,12 +134,16 @@
   (- (js/parseFloat (price line))
      (js/parseFloat (get-price (product-code line)))))
 
-(for [i (range (count receipt))]
+(def receipt-map
+  (for [i (range (dec (count receipt)))]
   {:line i
    :code (product-code (nth receipt i))
    :price (price (nth receipt i))
    :actual-price (get-price (product-code (nth receipt i)))
-   :price-diff (sub-price (nth receipt i))})
+   :price-diff (sub-price (nth receipt i))
+   :void (void? (nth receipt (inc i)))}))
+
+receipt-map
 </code></pre>
 </h2>
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
