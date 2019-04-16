@@ -138,12 +138,12 @@
   (for [i (range (dec (count receipt)))]
   {:line i
    :code (product-code (nth receipt i))
-   :price (price (nth receipt i))
+   :price-charged (price (nth receipt i))
    :actual-price (get-price (product-code (nth receipt i)))
    :price-diff (sub-price (nth receipt i))
    :void (void? (nth receipt (inc i)))}))
 
-receipt-map
+(nth receipt-map 1)
 </code></pre>
 </h2>
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
