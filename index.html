@@ -143,9 +143,15 @@
    :price-diff (sub-price (nth receipt i))
    :void (void? (nth receipt (inc i)))}))
 
-(filter #(and
-          (:price-charged %)
-          (false? (:void %))) receipt-map)
+
+(def items
+  (filter #(and
+            (:price-charged %)
+            (:actual-price %)
+            (false? (:void %)))
+          receipt-map))
+
+(reduce + (map #(:price-diff %) items))
 </code></pre>
 </h2>
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
