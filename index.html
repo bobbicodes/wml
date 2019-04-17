@@ -115,10 +115,12 @@
   (clojure.string/includes? s "VOID"))
 
 (defn product-code [s]
-  (re-find #"\d+" s))
+  (re-find #"\d{10}" s))
 
 (defn price [s]
-  (re-find #"\d+\.\d+" s))
+  (if (re-find #"\d+\.\d+" s)
+    (re-find #"\d+\.\d+" s)
+    "0.00"))
 
 (defn get-price [s]
   (first
@@ -146,6 +148,7 @@
 
 (def items
   (filter #(and
+            (not= "0.00" (:price-charged %))
             (:price-charged %)
             (:actual-price %)
             (false? (:void %)))
