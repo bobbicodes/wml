@@ -7,21 +7,44 @@
     (doall
       (csv/read-csv reader))))
 
-(defn nth-line [n]
-  (with-open [rdr (io/reader "resources/data/2001-09-01/ee62f687-4ed4-d4bd-40d9-c2671edb2768")]
-    (nth (line-seq rdr) n)))
+(def receipt
+  (line-seq (io/reader "resources/data/2001-09-01/ee62f687-4ed4-d4bd-40d9-c2671edb2768")))
 
 (defn void? [s]
   (clojure.string/includes? s "VOID"))
 
 (defn product-code [s]
-  (re-find #"\d+" s))
+  (re-find #"\d{10}" s))
 
 (defn price [s]
-  (re-find #"\d+\.\d+" s))
+  (if (re-find #"\d+\.\d+" s)
+    (re-find #"\d+\.\d+" s)
+    "0.00"))
 
 (defn get-price [s]
   (first (remove nil? (map #(if (clojure.string/includes? % s) (last %)) prices))))
 
+(defn sub-price [line]
+  (- (Float/parseFloat (price line))
+     (Float/parseFloat (get-price (product-code line)))))
+
+(def receipt-map
+  (for [i (range 1 (dec (count receipt)))]
+  {:line i
+   :code (product-code (nth receipt i))
+   :price-charged (price (nth receipt i))
+   :actual-price (get-price (product-code (nth receipt i)))
+   :price-diff (sub-price (nth receipt i))
+   :void (void? (nth receipt (inc i)))}))
+
+(def items
+  (filter #(and
+            (:price-charged %)
+            (not= "0.00" (:price-charged %))
+            (:actual-price %)
+            (false? (:void %)))
+          receipt-map))
+
+
 (defn -main []
-  (println (take 10 (.list (io/file "resources/data")))))
+  (println (reduce + (map #(:price-diff %) items))))
